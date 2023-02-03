@@ -1,24 +1,30 @@
 #!/usr/bin/env bash
-#sudo apt install inotify-tools
 
+#
+# examines every new incoming file under $PROCESSED, with "sox filename -n stat"
+#
 
-set -x
+#set -x
+# read configuration
 [ -f /etc/birdnet/birdnet.conf ] && source /etc/birdnet/birdnet.conf
-[ -f /etc/birdnet/birdnet-pi-cluster.conf ] && source /etc/birdnet/birdnet-pi-cluster.conf
-[ -z $RECS_DIR ] && RECS_DIR=/tmp/ino  # Testconfiguration if not set
-[ -z $MQTT_BROKER ] && MQTT_BROKER="49.12.4.122"
-[ -z $TOPIC_PRE ] && TOPIC_PRE="birdnet_pi_cl"
-[ -z $BPC_PATH ] && BPC_PATH=/home/pew//birdnet_pi_cluster/client/bin
+[ -f /etc/birdnet/birdnet_pi_cluster.conf ] && source /etc/birdnet/birdnet_pi_cluster.conf
 
-[ -z $MAC_ADRESS ] && MAC_ADRESS=$($BPC_PATH/getMacAdress.sh)
+# Testconfiguration if not set
+[ -z $PROCESSED ] && PROCESSED=/tmp/ino  
+[ -z $MQTT_BROKER ] && MQTT_BROKER="49.12.4.122"
+[ -z $MAC_ADRESS ] && MAC_ADRESS="FF:FF:FF:FF:FF:FF"
+[ -z $TOPIC_PRE ] && TOPIC_PRE="birdnet_pi_cluster/test"
+# run for test: 'while true; do cp /tmp/xxx.wav /tmp/ino/`date +%s`.wav; sleep 10; done'
+#
 
 sox2json() {
 #  Format sox output to json
+	# "anzahl=14": because sox -n returns 15 lines
 	sox  $1 -n stat 2>&1  |\
 	awk -v anzahl=14 -v mac_adress=$MAC_ADRESS -F':' '
 		function escape_colon(s) { gsub(/:/, "\\:" s); return s }
 		BEGIN { 
-			printf ("{\"mac_adress\":\"%s\",", escape_colon(mac_adress)) 
+			printf ("{\"host\":\"%s\",", escape_colon(mac_adress)) 
 			printf ("\"local_time\":\"%s\",", escape_colon(strftime("%FT%T%z", systime())))
 		}
 		function ltrim(s) { sub(/^[ \t\r\n]+/, "", s); return s }
@@ -28,7 +34,7 @@ sox2json() {
 			gsub(/ +/, "_", $1)	# replace " " with "_"
 			gsub(/\(|\)/, "", $1)	# replace "(" and ")" with nothing
 			if ( NR != anzahl ) {
-				printf ("\"%d%s\":%s,", NR, trim($1), trim($2))
+				printf ("\"%s\":%s,", trim($1), trim($2))
 			} else {
 				printf ("\"%s\":%s",  trim($1), trim($2))
 			}
