@@ -19,9 +19,9 @@
 
 sox2json() {
 #  Format sox output to json
-	# "anzahl=14": because sox -n returns 15 lines
+	# "number=15": because sox -n returns 15 lines
 	sox  $1 -n stat 2>&1  |\
-	awk -v anzahl=14 -v mac_adress=$MAC_ADRESS -F':' '
+	awk -v number=15 -v mac_adress=$MAC_ADRESS -F':' '
 		function escape_colon(s) { gsub(/:/, "\\:" s); return s }
 		BEGIN { 
 			printf ("{\"host\":\"%s\",", escape_colon(mac_adress)) 
@@ -33,7 +33,7 @@ sox2json() {
 		{
 			gsub(/ +/, "_", $1)	# replace " " with "_"
 			gsub(/\(|\)/, "", $1)	# replace "(" and ")" with nothing
-			if ( NR != anzahl ) {
+			if ( NR != number ) {
 				printf ("\"%s\":%s,", trim($1), trim($2))
 			} else {
 				printf ("\"%s\":%s",  trim($1), trim($2))
