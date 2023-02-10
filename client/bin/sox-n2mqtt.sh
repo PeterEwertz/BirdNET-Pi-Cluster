@@ -10,13 +10,12 @@
 [ -f /etc/birdnet/birdnet_pi_cluster.conf ] && source /etc/birdnet/birdnet_pi_cluster.conf
 
 # Testconfiguration if not set
-[ -z $PROCESSED ] && PROCESSED=/tmp/ino  
-[ -z $MQTT_BROKER ] && MQTT_BROKER="49.12.4.122"
-[ -z $MAC_ADRESS ] && MAC_ADRESS="FF:FF:FF:FF:FF:FF"
-[ -z $TOPIC_PRE ] && TOPIC_PRE="birdnet_pi_cluster/test"
+[ -z "$PROCESSED" ] && PROCESSED=/tmp/ino
+[ -z "$MQTT_BROKER" ] && MQTT_BROKER="49.12.4.122"
+[ -z "$MAC_ADRESS" ] && MAC_ADRESS="FF:FF:FF:FF:FF:FF"
+[ -z "$TOPIC_PRE" ] && TOPIC_PRE="birdnet_pi_cluster/test"
 # run for test: 'while true; do cp /tmp/xxx.wav /tmp/ino/`date +%s`.wav; sleep 10; done'
 #
-
 sox2json() {
 #  Format sox output to json
 	# "anzahl=14": because sox -n returns 15 lines
