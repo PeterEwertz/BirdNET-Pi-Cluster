@@ -19,7 +19,7 @@ APPRISE_TXT="$HOME/BirdNET-Pi/apprise.txt"
 BIRDNET_CONF="$HOME/BirdNET-Pi/birdnet.conf"
 JSON_BODY="'{\"host\":\""$MAC_ADRESS"\",\"sciname\":\"\$sciname\",\"comname\":\"\$comname\",\"confidence\":\"\$confidence\",\"lat\":\"\$latitude\",\"lng\":\"\$longitude\",\"dt\":\"\$date \$time\",\"week\":\"\$week\",\"sens\":\"\$sens\",\"cutoff\":\"\$cutoff\",\"overlap\":\"\$overlap\"}'"
 NEW_BODY="APPRISE_NOTIFICATION_BODY=$JSON_BODY"
-MQTT_URL="mqtt://$MQTT_BROCKER/$TOPIC_PRE/birds/json_v2/$MAC_ADRESS"
+MQTT_URL="mqtt://$MQTT_BROKER/$TOPIC_PRE/birds/json_v2/$MAC_ADRESS"
 RED='\033[0;31m'
 NOCOLOR='\033[0m'
 

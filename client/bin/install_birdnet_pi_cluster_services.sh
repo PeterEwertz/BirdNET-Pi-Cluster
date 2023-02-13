@@ -70,7 +70,7 @@ EOF
 
 [[inputs.system]]
 [[outputs.mqtt]]
-servers = ["$MQTT_BROCKER:1883"]
+servers = ["$MQTT_BROKER:1883"]
 topic_prefix = "birdnet_pi_cluster/health/influx"
 EOF
 

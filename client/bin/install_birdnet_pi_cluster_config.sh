@@ -21,9 +21,9 @@ install_config() {
 [ -z $string1 ] && export my_dir=${my_dir}
 [ -z $string2 ] && TOPIC_PRE="birdnet_pi_cluster"
 
-# MQTT_BROCKER is the internet address of the server that will receive         #
+# MQTT_BROKER is the internet address of the server that will receive          #
 # the bird detections and the health data from the BirdNET-Pi station.         #
-MQTT_BROCKER="49.12.4.122"
+MQTT_BROKER="49.12.4.122"
 
 # MAC_ADDRESS is the MAC address of the RJ45 interface. It is unique worldwide #
 # and is used to identify the BirdNET-Pi station on the server.
