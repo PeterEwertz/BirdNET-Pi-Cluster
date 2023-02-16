@@ -2,6 +2,8 @@
 # Uninstall script to remove everything
 set -x # Uncomment to debug
 trap 'rm -f ${TMPFILE}' EXIT
+RED='\033[0;31m'
+NOCOLOR='\033[0m'
 my_dir=$HOME/birdnet_pi_cluster/client/bin
 SCRIPTS=($(ls -1 ${my_dir}))
 services=($(awk '/service/ && /systemctl/ && /enable/ {print $3}' ${my_dir}/install_birdnet_pi_cluster_services.sh | sort))
@@ -48,4 +50,10 @@ if [ -f /etc/birdnet/birdnet_pi_cluster.conf ];then sudo rm -f /etc/birdnet/bird
 if [ -f ${HOME}/birdnet_pi_cluster/client/birdnet_pi_cluster.conf ];then sudo rm -f ${HOME}/birdnet_pi_cluster/client/birdnet_pi_cluster.conf ;fi
 
 cd $HOME
-echo "Uninstall finished. Remove this directory with 'rm -drfv $HOME/birdnet_pi_cluster' to finish."
+echo -e "${RED}####################################################################################
+Uninstall of services finished.
+
+To stop the bird notifications in the BirdNET-Pi cluster, 
+please delete the settings under 'Apprise Notifications' under tools->settings of your BirdNet-Pi frontend.
+
+Remove this directory with 'rm -drfv $HOME/birdnet_pi_cluster' to finish.${NOCOLOR}"
