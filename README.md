@@ -9,7 +9,9 @@ All relevant data is transferred to the **BirdNET-Pi_cluster** server by the cli
 
 ## client
 The client (your [**BirdNet-Pi**](https://github.com/mcguirepr89/BirdNET-Pi) station) provides the server data on its technical health, base data and the recognitions of birds.
-### health
+## install:
+`git clone git@github.com:PeterEwertz/birdnet_pi_cluster.git
+`### health
 `telegraf.service` offers the transmission of data to: cpu, disk, diskio, kernel, mem, processes, swap and system.
 
 `sox-n.service` provides the statistical information for each recorded audio file that was determined with `sox `*filename*` -n stat`.
