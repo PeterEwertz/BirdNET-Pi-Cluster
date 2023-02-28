@@ -1,0 +1,10 @@
+[Unit]
+Description=sends statistical information about the audio
+[Service]
+Restart=always
+Type=simple
+RestartSec=3
+User=pew
+ExecStart=/usr/local/bin/sox-n2mqtt.sh
+[Install]
+WantedBy=multi-user.target
