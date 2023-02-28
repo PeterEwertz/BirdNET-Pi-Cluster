@@ -10,7 +10,7 @@ set -x
 [ -f /etc/birdnet/birdnet.conf ] && source /etc/birdnet/birdnet.conf
 [ -f /etc/birdnet/birdnet_pi_cluster.conf ] && source /etc/birdnet/birdnet_pi_cluster.conf
 # Testconfiguration if not set
-[ -z "${MQTT_BROKER}" ] && MQTT_BROKER="49.12.4.122"
+[ -z "${MQTT_BROKER}" ] && MQTT_BROKER="birdnet-pi-cluster"
 [ -z "${MAC_ADRESS}" ] && MAC_ADRESS="FF:FF:FF:FF:FF:FF"
 [ -z "${TOPIC_PRE}" ] && TOPIC_PRE="birdnet_pi_cluster/test"
 #
