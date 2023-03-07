@@ -14,31 +14,27 @@
 [ -z "$MQTT_BROKER" ] && MQTT_BROKER="birdnet-pi-cluster.net"
 [ -z "$MAC_ADRESS" ] && MAC_ADRESS="FF:FF:FF:FF:FF:FF"
 [ -z "$TOPIC_PRE" ] && TOPIC_PRE="birdnet_pi_cluster/test"
-# run for test: 'while true; do cp /tmp/xxx.wav /tmp/ino/`date +%s`.wav; sleep 10; done'
+# run for test: 'while true; do cp /usr/share/sounds/alsa/Rear_Center.wav /tmp/ino/`date +%s`.wav; sleep 10; done'
 #
 sox2json() {
 #  Format sox output to json
 	# "number=15": because sox -n returns 15 lines
 	sox  $1 -n stat 2>&1  |\
-	awk -v number=15 -v mac_adress=$MAC_ADRESS -F':' '
-		function escape_colon(s) { gsub(/:/, "\\:" s); return s }
+	awk -v mac_adress=$MAC_ADRESS -F':' '
+		function replace_blank(s) { gsub(/([[:blank:]]+)/, "_", s); return s }
+		function trim_space(s) { gsub(/[ ]/, "", s); return s }
+		function trim_bracket(s) { gsub(/[(]|[)]/, "", s); return s }
+		function build_name(s) { s = tolower(trim_bracket(replace_blank(s))); return s }
 		BEGIN { 
-			printf ("{\"host\":\"%s\",", escape_colon(mac_adress)) 
-			printf ("\"local_time\":\"%s\",", escape_colon(strftime("%FT%T%z", systime())))
+			local_time = sprintf("local_time=\"%s\"", strftime("%FT%T%z", systime()))
+			playground = sprintf("sox-n host=\"%s\",%s", mac_adress, local_time)
 		}
-		function ltrim(s) { sub(/^[ \t\r\n]+/, "", s); return s }
-		function rtrim(s) { sub(/[ \t\r\n]+$/, "", s); return s }
-		function trim(s)  { return tolower(rtrim(ltrim(s))); }
 		{
-			gsub(/ +/, "_", $1)	# replace " " with "_"
-			gsub(/\(|\)/, "", $1)	# replace "(" and ")" with nothing
-			if ( NR != number ) {
-				printf ("\"%s\":%s,", trim($1), trim($2))
-			} else {
-				printf ("\"%s\":%s",  trim($1), trim($2))
-			}
+			playground = sprintf("%s,%s=%s", playground, build_name($1), trim_space($2))
 		}
-		END { printf ("}") } 
+		END {
+		print (playground)
+		}
 	' 
 }
 
@@ -50,6 +46,11 @@ inotifywait -m $PROCESSED -e create,moved_to --exclude '.*.csv' |
 		#echo "sox $DIR$FILE -n stat"
 
 		PLAYGROUND=`sox2json "$DIR$FILE" -n stat | tr -d '\n' `
-		mosquitto_pub -h $MQTT_BROKER -t "$TOPIC_PRE/health/json_v2/$MAC_ADRESS/sox-n" -m "$PLAYGROUND"
+		mosquitto_pub -h $MQTT_BROKER -t "$TOPIC_PRE/health/influx/$MAC_ADRESS/sox-n" -m "$PLAYGROUND"
 	fi
     done
+### test:
+##		PLAYGROUND=`sox2json /usr/share/sounds/alsa/Rear_Center.wav -n stat`
+##		echo mosquitto_pub -h $MQTT_BROKER -t "$TOPIC_PRE/health/influx/$MAC_ADRESS/sox-n" -m "$PLAYGROUND"
+##		echo -e $PLAYGROUND
+##		mosquitto_pub -h $MQTT_BROKER -t "$TOPIC_PRE/health/influx/$MAC_ADRESS/sox-n" -m "$PLAYGROUND"
