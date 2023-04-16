@@ -2,7 +2,7 @@
 #~/BirdNET-Pi/birdnet/bin/pip3 install paho-mqtt
 
 #
-# modify notify BirdNet-Pi configuration for using with birdnet_pi_cluster
+# modify notify BirdNet-Pi configuration for using with BirdNET-Pi-Cluster
 #
 
 set -x
@@ -14,7 +14,7 @@ set -x
 [ -z "${MAC_ADRESS}" ] && MAC_ADRESS="FF:FF:FF:FF:FF:FF"
 [ -z "${TOPIC_PRE}" ] && TOPIC_PRE="birdnet_pi_cluster/test"
 #
-MARKER="BirdNET-Pi_cluster"
+MARKER="BirdNET-Pi-Cluster"
 APPRISE_TXT="$HOME/BirdNET-Pi/apprise.txt"
 BIRDNET_CONF="$HOME/BirdNET-Pi/birdnet.conf"
 JSON_BODY="'{\"host\":\""$MAC_ADRESS"\",\"sciname\":\"\$sciname\",\"comname\":\"\$comname\",\"confidence\":\"\$confidence\",\"lat\":\"\$latitude\",\"lng\":\"\$longitude\",\"dt\":\"\$date \$time\",\"week\":\"\$week\",\"sens\":\"\$sens\",\"cutoff\":\"\$cutoff\",\"overlap\":\"\$overlap\"}'"

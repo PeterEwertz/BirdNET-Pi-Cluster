@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# sends an MQTT 'Bird' messsage to the BirdNET-Pi_cluster for testing
+# sends an MQTT 'Bird' messsage to the BirdNET-Pi-Cluster for testing
 #
 
 # read configuration

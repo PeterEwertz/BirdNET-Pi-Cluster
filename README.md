@@ -12,7 +12,7 @@ The client (your [**BirdNet-Pi**](https://github.com/mcguirepr89/BirdNET-Pi) sta
 ### install:
 In the home directory of the BirdNET-Pi user:
 ```
-git clone git@github.com:PeterEwertz/BirdNET_Pi_Cluster.git
+git clone git@github.com:PeterEwertz/BirdNET-Pi-Cluster.git
 cd ~/BirdNET-Pi-Cluster/client
 ./install_BirdNET-Pi-Cluster.sh
 ./bin/mqtt4BridNET-Pi-Cluster.sh

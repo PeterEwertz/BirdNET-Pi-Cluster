@@ -56,4 +56,4 @@ Uninstall of services finished.
 To stop the bird notifications in the BirdNET-Pi cluster, 
 please delete the settings under 'Apprise Notifications' under tools->settings of your BirdNet-Pi frontend.
 
-Remove this directory with 'rm -drfv $HOME/birdnet_pi_cluster' to finish.${NOCOLOR}"
+Remove this directory with 'rm -drfv $HOME/Birdnet-Pi-Cluster' to finish.${NOCOLOR}"
