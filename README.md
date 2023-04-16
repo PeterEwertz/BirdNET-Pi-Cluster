@@ -1,6 +1,6 @@
 # BirdNET-Pi-Cluster
 
-**BirdNET-Pi-Cluster** is an expansion to the great [**BirdNet-Pi**](https://github.com/mcguirepr89/BirdNET-Pi) project, which birds recognize on their voice and processes at the local level.
+**BirdNET-Pi-Cluster** is an expansion to the great [**BirdNET-Pi**](https://github.com/mcguirepr89/BirdNET-Pi) project, which birds recognize on their voice and processes at the local level.
 
 **BirdNET-Pi-Cluster** collects the data from several BirdNET-Pi stations for statistical processing.
 This makes it possible to make observations about the vitality and diversity of the bird population. Different locations can be compared with one another or with a group of locations and/or viewed over time.
@@ -13,9 +13,9 @@ The client (your [**BirdNet-Pi**](https://github.com/mcguirepr89/BirdNET-Pi) sta
 In the home directory of the BirdNET-Pi user:
 ```
 git clone git@github.com:PeterEwertz/BirdNET_Pi_Cluster.git
-cd ~/BirdNET_Pi_Cluster/client
-./install_birdneti_pi_cluster.sh
-./bin/mqtt4BridNET-Pi_cl.sh
+cd ~/BirdNET-Pi-Cluster/client
+./install_BirdNET-Pi-Cluster.sh
+./bin/mqtt4BridNET-Pi-Cluster.sh
 ```
 
 ### data to collect:

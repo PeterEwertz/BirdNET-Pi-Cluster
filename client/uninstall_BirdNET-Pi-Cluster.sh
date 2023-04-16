@@ -4,9 +4,9 @@ set -x # Uncomment to debug
 trap 'rm -f ${TMPFILE}' EXIT
 RED='\033[0;31m'
 NOCOLOR='\033[0m'
-my_dir=$HOME/birdnet_pi_cluster/client/bin
+my_dir=$HOME/BirdNET-Pi-Cluster/client/bin
 SCRIPTS=($(ls -1 ${my_dir}))
-services=($(awk '/service/ && /systemctl/ && /enable/ {print $3}' ${my_dir}/install_birdnet_pi_cluster_services.sh | sort))
+services=($(awk '/service/ && /systemctl/ && /enable/ {print $3}' ${my_dir}/install_BirdNET-Pi-Cluster_services.sh | sort))
 
 remove_services() {
   for i in "${services[@]}"; do
