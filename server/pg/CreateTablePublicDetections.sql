@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS public.birds
     overlap double precision,
     sens double precision,
     week bigint,
-    delay interval
+    time_arrival timestamp without time zone
 )
 
 TABLESPACE pg_default;
